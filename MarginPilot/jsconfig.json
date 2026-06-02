@@ -1,0 +1,15 @@
+{
+    "$schema": "https://json.schemastore.org/jsconfig",
+    "compilerOptions": {
+        "jsx": "react",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./resources/js/*"]
+        }
+    },
+    "include": [
+        "resources/js/**/*",
+        "public/js/margexa/**/*"
+    ],
+    "exclude": ["node_modules", "public/build", "vendor"]
+}

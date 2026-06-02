@@ -1,0 +1,17 @@
+﻿{
+  "permissions": {
+    "allow": [
+      "Bash(find /c/Users/Admin/Desktop/Margexa/tests -name *.php -type f)",
+      "Bash(php artisan:*)",
+      "Bash(ls \"c:\\\\Users\\\\Admin\\\\Desktop\\\\Margexa\\\\resources\\\\views\\\\emails\"\" 2>/dev/null && echo \"---\" && ls \"c:UsersAdminDesktopMargexadocs\"\")",
+      "Bash(powershell -Command \":*)",
+      "Bash(head -20 grep -n \"checkout_offer\\\\|checkoutOffer\" /c/Users/Admin/Desktop/Margexa/resources/js/Pages/Public/Pricing.jsx)",
+      "Bash(grep -r google c:/Users/Admin/Desktop/Margexa --include=*.php --include=*.jsx --include=*.js)",
+      "Bash(where 7z)",
+      "Read(//c/Program Files/7-Zip/**)",
+      "Bash(find /c/Users/Admin/Desktop/Margexa/resources/js -type f \\\\\\(-name *.jsx -o -name *.js \\\\\\))",
+      "Bash(find /c/Users/Admin/Desktop/Margexa/resources/js/Pages -name \"*.jsx\" -type f -exec wc -l {} +)",
+      "Bash(grep -n \"^export default function\\\\|^function.*{$\" /c/Users/Admin/Desktop/Margexa/resources/js/Pages/Billing/Index.jsx)"
+    ]
+  }
+}

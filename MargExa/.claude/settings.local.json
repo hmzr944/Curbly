@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/Admin/Desktop/MarginPilot/resources/js/Pages/Public/**)",
+      "Read(//c/Users/Admin/Desktop/MarginPilot/**)"
+    ]
+  }
+}

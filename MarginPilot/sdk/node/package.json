@@ -1,0 +1,27 @@
+{
+  "name": "@margexa/node",
+  "version": "0.1.0",
+  "description": "Official Node.js SDK for the Margexa LLM gateway — cost control, policy enforcement, and attribution in one line of code.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "license": "MIT",
+  "keywords": ["margexa", "llm", "openai", "proxy", "cost", "ai"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/margexa/node-sdk"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "peerDependencies": {
+    "openai": ">=4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "openai": {
+      "optional": false
+    }
+  },
+  "devDependencies": {
+    "openai": "^4.0.0"
+  }
+}
