@@ -1,0 +1,90 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+export function EarlyAccess() {
+  const [email, setEmail] = useState("");
+  const [volume, setVolume] = useState("");
+  const [ref, setRef] = useState<string | null>(null);
+  const [state, setState] = useState<"idle" | "sending" | "done">("idle");
+  const [error, setError] = useState("");
+  const [link, setLink] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    setRef(new URLSearchParams(window.location.search).get("ref"));
+  }, []);
+
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setState("sending");
+    setError("");
+    const website = new FormData(e.currentTarget).get("website");
+    const res = await fetch("/api/waitlist", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email, volume, ref, website }),
+    }).catch(() => null);
+    const data = await res?.json().catch(() => null);
+    if (!res?.ok || !data?.code) {
+      setError(data?.error ?? "L'inscription n'a pas pu être enregistrée. Réessayez dans un instant.");
+      setState("idle");
+      return;
+    }
+    setLink(`${window.location.origin}/?ref=${data.code}`);
+    setState("done");
+  }
+
+  if (state === "done") {
+    return (
+      <div className="space-y-3">
+        <p className="font-display text-2xl font-bold">C'est noté. On vous écrit dès que votre accès est prêt.</p>
+        <p className="text-muted">
+          Vous connaissez un indépendant qui court après ses factures ? Envoyez-lui ce lien : chaque inscription faite avec
+          vous fait avancer votre place dans la file.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <input readOnly value={link} className="field num max-w-md" aria-label="Votre lien de parrainage" />
+          <button
+            type="button"
+            className="rounded-lg border border-rule px-4 py-2 text-sm hover:border-ink"
+            onClick={async () => {
+              await navigator.clipboard.writeText(link);
+              setCopied(true);
+            }}
+          >
+            {copied ? "Lien copié" : "Copier le lien"}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={submit} className="grid gap-4 sm:grid-cols-[1fr_auto]">
+      <label className="space-y-1.5 text-sm sm:col-span-2">
+        <span className="font-medium">Votre email professionnel</span>
+        <input className="field" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
+      </label>
+      <fieldset className="text-sm sm:col-span-2">
+        <legend className="mb-2 font-medium">Combien de factures payées en retard par mois, en moyenne ?</legend>
+        <div className="flex flex-wrap gap-2">
+          {["0", "1-2", "3-10", "10+"].map((v) => (
+            <label key={v} className={`cursor-pointer rounded-full border px-3 py-1.5 ${volume === v ? "border-ink bg-ink text-paper" : "border-rule bg-sheet"}`}>
+              <input type="radio" name="volume" value={v} className="sr-only" checked={volume === v} onChange={() => setVolume(v)} />
+              {v === "0" ? "Aucune" : v}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
+      <button type="submit" disabled={state === "sending"} className="rounded-lg bg-ink px-5 py-2.5 font-semibold text-paper hover:opacity-90 disabled:opacity-60 sm:w-fit">
+        {state === "sending" ? "Inscription…" : "Demander mon accès"}
+      </button>
+      {error && <p className="text-sm text-late sm:col-span-2" role="alert">{error}</p>}
+      <p className="text-xs text-muted sm:col-span-2">
+        Votre email sert uniquement à vous prévenir de l'ouverture. Désinscription en un clic.
+      </p>
+    </form>
+  );
+}
