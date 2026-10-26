@@ -32,7 +32,6 @@ export default function Page() {
       />
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
         <PageHeader
-          tone="late"
           title="Calcul des pénalités de retard de paiement"
           intro={
             <>
@@ -40,8 +39,7 @@ export default function Page() {
                 Entre professionnels, une facture payée en retard donne droit à des pénalités et à une indemnité
                 forfaitaire de 40 €, sans démarche préalable. Voici combien votre client vous doit déjà.
               </p>
-              <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-paid-soft px-3 py-1 text-sm text-paid-ink">
-                <span className="h-1.5 w-1.5 rounded-full bg-paid" aria-hidden />
+              <p className="mt-4 text-sm">
                 Calcul dans votre navigateur, taux à jour au {frenchDate(RATES_UPDATED_AT)}
               </p>
             </>
@@ -59,7 +57,7 @@ export default function Page() {
             L'article L441-10 du Code de commerce prévoit que les pénalités courent dès le lendemain de la date
             d'échéance. Elles se calculent en intérêts simples :
           </p>
-          <p className="rounded-2xl border-l-4 border-late bg-sheet px-4 py-3 font-semibold">
+          <p className="rounded-2xl border border-rule bg-sheet px-4 py-3 font-semibold">
             montant TTC × taux annuel × nombre de jours de retard ÷ 365
           </p>
           <p>
@@ -97,7 +95,7 @@ export default function Page() {
                     <tr key={s} className="border-b border-rule">
                       <td className="py-2 pr-4">{h === "1" ? "1er" : "2e"} semestre {y}</td>
                       <td className="py-2 pr-4">{fmtRate(r.ecb)}</td>
-                      <td className="py-2 pr-4 font-semibold text-late-ink">{fmtRate(r.ecb + 10)}</td>
+                      <td className="py-2 pr-4 font-semibold">{fmtRate(r.ecb + 10)}</td>
                       <td className="py-2">{fmtRate(Math.round(r.legalPro * 300) / 100)}</td>
                     </tr>
                   );

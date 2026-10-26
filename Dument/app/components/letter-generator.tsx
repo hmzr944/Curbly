@@ -121,7 +121,6 @@ export function LetterGenerator({ initialStage = "first" }: { initialStage?: Sta
       </form>
 
       <article className="card relative overflow-hidden p-5 sm:p-7 print:border-0 print:p-0 print:shadow-none">
-        <span aria-hidden className="no-print absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-brand via-late to-paid" />
         <div className="no-print mb-4 flex flex-wrap items-center gap-2">
           {!isNotice && (
             <a href={mailto} className="btn btn-primary btn-sm">
@@ -144,7 +143,7 @@ export function LetterGenerator({ initialStage = "first" }: { initialStage?: Sta
         <p className="mb-4 font-display text-lg font-bold">{letter.subject}</p>
         <div className="prose-letter">{letter.body}</div>
         {isNotice && (
-          <p className="no-print mt-6 rounded-xl bg-late-soft px-3 py-2 text-sm text-late-ink">
+          <p className="no-print mt-6 rounded-xl bg-paper px-3 py-2 text-sm text-muted">
             Envoyez la mise en demeure en lettre recommandée avec accusé de réception (papier ou électronique) : c'est elle
             qui fait courir les délais et qui servira de preuve devant le juge.
           </p>

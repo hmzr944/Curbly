@@ -48,7 +48,6 @@ export default function Page({ params }: { params: { slug: string } }) {
       />
       <div className="no-print grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem]">
         <PageHeader
-          tone={m.stage === "formal-notice" ? "paid" : m.stage === "courtesy" ? "brand" : "late"}
           eyebrow={
             <nav>
               <Link href="/modeles" className="link">Modèles</Link> <span aria-hidden>/</span> {s.label}
@@ -73,23 +72,23 @@ export default function Page({ params }: { params: { slug: string } }) {
       </section>
 
       <section className="no-print mt-16 grid gap-10 md:grid-cols-2">
-        <div data-reveal className="card border-t-4 border-t-paid p-6">
+        <div data-reveal className="card p-6">
           <h2 className="font-display text-2xl font-bold">Ce qui fait la différence</h2>
           <ul className="mt-4 space-y-3">
             {m.advice.map((a) => (
               <li key={a} className="flex gap-3">
-                <span aria-hidden className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-paid-soft text-xs font-bold text-paid-ink">✓</span>
+                <span aria-hidden className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-soft text-xs font-bold text-brand-ink">✓</span>
                 {a}
               </li>
             ))}
           </ul>
         </div>
-        <div data-reveal style={{ "--i": 1 } as React.CSSProperties} className="card border-t-4 border-t-late p-6">
+        <div data-reveal style={{ "--i": 1 } as React.CSSProperties} className="card p-6">
           <h2 className="font-display text-2xl font-bold">Les erreurs à éviter</h2>
           <ul className="mt-4 space-y-3">
             {m.mistakes.map((a) => (
               <li key={a} className="flex gap-3">
-                <span aria-hidden className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-late-soft text-xs font-bold text-late-ink">✕</span>
+                <span aria-hidden className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-rule text-xs font-bold text-muted">✕</span>
                 {a}
               </li>
             ))}

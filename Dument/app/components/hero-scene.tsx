@@ -44,7 +44,7 @@ export function HeroScene() {
           </div>
           <span
             className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors duration-300 ${
-              paid ? "bg-paid-soft text-paid-ink" : "bg-late-soft text-late-ink"
+              paid ? "bg-paid-soft text-paid-ink" : "bg-paper text-muted"
             }`}
           >
             {paid ? "Payée" : "En retard"}
@@ -58,7 +58,7 @@ export function HeroScene() {
               data-state={step > i ? "shown" : "hidden"}
               className="msg flex gap-3 rounded-2xl border border-rule bg-paper p-3"
             >
-              <span className="num mt-0.5 h-fit shrink-0 rounded-full bg-late px-2 py-0.5 text-xs font-bold text-white">{m.day}</span>
+              <span className="num mt-0.5 h-fit shrink-0 rounded-full border border-rule bg-sheet px-2 py-0.5 text-xs font-bold">{m.day}</span>
               <span className="min-w-0">
                 <span className="block text-sm font-semibold">{m.title}</span>
                 <span className="block truncate text-sm text-muted">{m.body}</span>

@@ -131,7 +131,7 @@ export function PenaltyCalculator({ compact = false }: { compact?: boolean }) {
               </div>
             </dl>
             {result.warnings.map((w) => (
-              <p key={w} className="mt-3 rounded-xl bg-late-soft px-3 py-2 text-sm text-late-ink">{w}</p>
+              <p key={w} className="mt-3 rounded-xl bg-paper px-3 py-2 text-sm">{w}</p>
             ))}
             <Link
               href={`/outils/lettre-de-relance?montant=${value}&echeance=${dueDate}`}

@@ -20,19 +20,16 @@ const promises = [
   {
     title: "Vos messages, votre adresse",
     body: "Les relances partent de votre boîte mail, signées de votre nom, dans le fil de la facture. Votre client vous répond directement.",
-    color: "bg-brand",
     icon: "M4 7l8 6 8-6M5 5h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z",
   },
   {
     title: "Rien de grave sans votre accord",
     body: "La mise en demeure attend votre validation. Un client fidèle qui traverse une passe difficile ? Mettez sa séquence en pause en un clic.",
-    color: "bg-late",
     icon: "M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z",
   },
   {
     title: "L'argent ne passe pas par nous",
     body: "Dûment est un logiciel, pas une agence de recouvrement : votre client vous paie directement et nous ne prenons aucune commission.",
-    color: "bg-paid",
     icon: "M3 10h18M5 10V19M19 10v9M9 10v9M15 10v9M2 21h20M12 3l9 5H3l9-5z",
   },
 ];
@@ -55,11 +52,6 @@ export default function Home() {
 
       {/* Hero */}
       <section className="relative isolate overflow-hidden">
-        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-          <div className="blob absolute -left-24 top-10 h-72 w-72 rounded-full bg-brand/30" />
-          <div className="blob absolute right-0 top-0 h-80 w-80 rounded-full bg-late/25 [animation-delay:-5s]" />
-          <div className="blob absolute bottom-0 left-1/2 h-64 w-64 rounded-full bg-paid/25 [animation-delay:-10s]" />
-        </div>
         <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] items-center gap-14 px-4 pb-20 pt-10 sm:px-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:pb-28 lg:pt-16">
           <div>
             <h1 className="font-display text-[2.6rem] font-extrabold leading-[1] tracking-tight sm:text-[3.6rem]">
@@ -85,7 +77,7 @@ export default function Home() {
             <ul className="fade-up mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm" style={{ "--i": 3 } as React.CSSProperties}>
               {["Gratuit pour démarrer", "Envoyé depuis votre adresse", "Aucune commission"].map((t) => (
                 <li key={t} className="flex items-center gap-2">
-                  <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 rounded-full bg-paid-soft p-1 text-paid-ink" aria-hidden>
+                  <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 rounded-full bg-brand-soft p-1 text-brand-ink" aria-hidden>
                     <path className="draw-check" d="M5 12.5l4.2 4L19 7" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                   {t}
@@ -100,14 +92,12 @@ export default function Home() {
       </section>
 
       {/* Audience marquee */}
-      <div className="overflow-hidden bg-brand py-4 text-white" aria-label="Pour qui">
+      <div className="overflow-hidden border-y border-rule py-4 text-muted" aria-label="Pour qui">
         <div className="marquee flex w-max gap-10 pr-10">
           {[...audiences, ...audiences].map((a, i) => (
-            <span key={i} className="flex items-center gap-10 font-display text-lg font-bold" aria-hidden={i >= audiences.length}>
+            <span key={i} className="flex items-center gap-10 font-display text-lg font-semibold" aria-hidden={i >= audiences.length}>
               {a}
-              <svg viewBox="0 0 12 8" className="h-3 w-4 text-paid" aria-hidden>
-                <path d="M1.5 4.2 4.6 6.8 10.5 1.2" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <span className="h-1.5 w-1.5 rounded-full bg-rule" aria-hidden />
             </span>
           ))}
         </div>
@@ -131,19 +121,18 @@ export default function Home() {
       </section>
 
       {/* Sequence */}
-      <section className="relative overflow-hidden bg-night text-white">
-        <div aria-hidden className="blob pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-brand/40" />
+      <section className="border-y border-rule bg-sheet">
         <div className="relative mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-14 px-4 py-24 sm:px-6 lg:grid-cols-[minmax(0,1fr)_21rem]">
           <div>
             <h2 data-reveal className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
               Une séquence qui tient la distance à votre place
             </h2>
-            <p data-reveal className="mt-4 max-w-xl text-white/70" style={{ "--i": 1 } as React.CSSProperties}>
+            <p data-reveal className="mt-4 max-w-xl text-muted" style={{ "--i": 1 } as React.CSSProperties}>
               Chaque facture suit la même progression, du rappel courtois à la mise en demeure. Dès que le paiement arrive,
               tout s'arrête.
             </p>
             <ol data-reveal className="relative mt-12">
-              <span aria-hidden className="draw-y absolute bottom-6 left-[2.2rem] top-4 w-0.5 rounded-full bg-gradient-to-b from-late via-late to-paid" />
+              <span aria-hidden className="draw-y absolute bottom-6 left-[2.2rem] top-4 w-0.5 rounded-full bg-rule" />
               {STAGES.map((s, i) => (
                 <li
                   key={s.id}
@@ -153,7 +142,7 @@ export default function Home() {
                 >
                   <span
                     className={`num relative z-10 h-fit rounded-full py-1 text-center text-sm font-bold ${
-                      s.requiresApproval ? "bg-white text-night" : "bg-late text-white"
+                      s.requiresApproval ? "bg-brand text-white" : "border border-rule bg-paper"
                     }`}
                   >
                     {s.offset < 0 ? `J${s.offset}` : `J+${s.offset}`}
@@ -162,18 +151,18 @@ export default function Home() {
                     <p className="font-display text-xl font-bold">
                       {s.label}
                       {s.requiresApproval && (
-                        <span className="ml-2 inline-block rounded-full bg-paid px-2.5 py-0.5 align-middle font-sans text-xs font-semibold text-night">
+                        <span className="ml-2 inline-block rounded-full bg-brand-soft px-2.5 py-0.5 align-middle font-sans text-xs font-semibold text-brand-ink">
                           Envoyée après votre accord
                         </span>
                       )}
                     </p>
-                    <p className="mt-1 text-white/70">{examples[s.id]}</p>
+                    <p className="mt-1 text-muted">{examples[s.id]}</p>
                   </div>
                 </li>
               ))}
             </ol>
           </div>
-          <div data-reveal className="relative h-fit self-center rounded-[22px] bg-sheet p-6 pb-24 text-ink shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
+          <div data-reveal className="card relative h-fit self-center bg-paper p-6 pb-24">
             <p className="text-sm text-muted">Facture</p>
             <p className="num font-display text-xl font-bold">F-2026-041</p>
             <dl className="num mt-5 space-y-2 text-sm">
@@ -195,7 +184,7 @@ export default function Home() {
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {promises.map((p, i) => (
             <div key={p.title} data-reveal style={{ "--i": i } as React.CSSProperties} className="card p-7">
-              <span className={`grid h-12 w-12 place-items-center rounded-2xl ${p.color} text-white`}>
+              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand-soft text-brand-ink">
                 <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden>
                   <path d={p.icon} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -213,8 +202,6 @@ export default function Home() {
           data-reveal
           className="relative mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-10 overflow-hidden rounded-[28px] bg-brand px-6 py-14 text-white sm:px-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
         >
-          <div aria-hidden className="blob pointer-events-none absolute -bottom-24 -left-16 h-80 w-80 rounded-full bg-late/50" />
-          <div aria-hidden className="blob pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full bg-paid/40 [animation-delay:-7s]" />
           <div className="relative space-y-4">
             <h2 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">L'envoi automatique arrive bientôt</h2>
             <p className="text-white/85">

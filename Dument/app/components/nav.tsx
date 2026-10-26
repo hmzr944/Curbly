@@ -42,7 +42,7 @@ export function Nav() {
                 className={`relative whitespace-nowrap py-1 transition-colors ${active ? "font-semibold text-brand-ink" : "text-muted hover:text-ink"}`}
               >
                 {l.label}
-                {active && <span aria-hidden className="absolute inset-x-0 -bottom-0.5 h-0.5 rounded-full bg-late" />}
+                {active && <span aria-hidden className="absolute inset-x-0 -bottom-0.5 h-0.5 rounded-full bg-brand" />}
               </Link>
             );
           })}

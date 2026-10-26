@@ -28,9 +28,7 @@ export default function Page() {
                 className="card group grid gap-3 p-5 transition-[transform,border-color] duration-200 hover:border-brand sm:grid-cols-[5rem_1fr] sm:gap-6 sm:p-6 [@media(hover:hover)]:hover:-translate-y-0.5"
               >
                 <span
-                  className={`num h-fit w-fit rounded-full px-3 py-1 text-sm font-bold text-white ${
-                    s.requiresApproval ? "bg-paid" : s.offset < 0 ? "bg-brand" : "bg-late"
-                  }`}
+                  className="num h-fit w-fit rounded-full border border-rule px-3 py-1 text-sm font-bold"
                 >
                   {s.offset < 0 ? `J${s.offset}` : `J+${s.offset}`}
                 </span>

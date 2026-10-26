@@ -38,7 +38,7 @@ export function EarlyAccess() {
   if (state === "done") {
     return (
       <div className="space-y-3">
-        <svg viewBox="0 0 24 24" className="h-12 w-12 rounded-full bg-paid p-2.5 text-white" aria-hidden>
+        <svg viewBox="0 0 24 24" className="h-12 w-12 rounded-full bg-brand p-2.5 text-white" aria-hidden>
           <path className="draw-check" d="M5 12.5l4.2 4L19 7" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
         <p className="font-display text-2xl font-bold">C'est noté. On vous écrit dès que votre accès est prêt.</p>
