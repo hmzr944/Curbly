@@ -1,29 +1,28 @@
 @import "tailwindcss";
 
 /*
- * Colour rule: the interface is neutral, with one brand colour.
- * - Indigo (brand): everything you can act on — buttons, links, active states, focus, logo.
- * - Coral (late): only money still owed (penalties, amounts due).
- * - Green (paid): only the "paid" outcome.
- * Nothing else gets colour. The "-ink" variants are darker shades for small text (4.5:1 contrast).
+ * Colour rule: black and white, with a single colour.
+ * - Green (brand): everything you can act on (buttons, links, active states, focus, logo) and the "paid" outcome.
+ * - Amounts still owed stay in ink, set bold: no warning colour.
+ * Neutrals are plain greys. The "-ink" variants are darker shades for small text (4.5:1 contrast).
  */
 @theme {
-  --color-brand: #4f3bff;
-  --color-brand-ink: #3a27d6;
-  --color-brand-soft: #ebe8ff;
-  --color-late: #ff6b4a;
-  --color-late-ink: #c23a1b;
-  --color-late-soft: #ffe9e3;
-  --color-paid: #12b886;
-  --color-paid-ink: #08785a;
-  --color-paid-soft: #dcf6ec;
+  --color-brand: #0b6e4f;
+  --color-brand-ink: #085a40;
+  --color-brand-soft: #e2f1eb;
+  --color-late: #111412;
+  --color-late-ink: #111412;
+  --color-late-soft: #f1f2f1;
+  --color-paid: #0b6e4f;
+  --color-paid-ink: #085a40;
+  --color-paid-soft: #e2f1eb;
 
-  --color-paper: #f7f6ff;
+  --color-paper: #f5f5f3;
   --color-sheet: #ffffff;
-  --color-ink: #17143b;
-  --color-muted: #5c5a7a;
-  --color-rule: #e2dff4;
-  --color-night: #15113a;
+  --color-ink: #111412;
+  --color-muted: #5b605d;
+  --color-rule: #e1e3e0;
+  --color-night: #111412;
 
   --font-display: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
@@ -210,7 +209,7 @@ p {
   border: 1px solid var(--color-rule);
   background: var(--color-sheet);
   border-radius: 22px;
-  box-shadow: 0 24px 50px -36px rgb(40 30 140 / 0.45);
+  box-shadow: 0 24px 50px -36px rgb(17 20 18 / 0.28);
 }
 
 .prose-letter {
