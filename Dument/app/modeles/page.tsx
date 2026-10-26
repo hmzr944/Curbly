@@ -33,7 +33,7 @@ export default function Page() {
                   {s.offset < 0 ? `J${s.offset}` : `J+${s.offset}`}
                 </span>
                 <span>
-                  <span className="font-display text-xl font-bold transition-colors group-hover:text-brand-ink">{m.h1}</span>
+                  <span className="font-display text-lg font-bold transition-colors group-hover:text-brand-ink">{m.h1}</span>
                   <span className="mt-1 block text-muted">{m.description}</span>
                 </span>
               </Link>

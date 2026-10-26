@@ -13,7 +13,7 @@ export function PageHeader({
   return (
     <div className="no-print">
       {eyebrow && <div className="fade-up mb-4 text-sm text-muted">{eyebrow}</div>}
-      <h1 className="font-display text-4xl font-extrabold leading-[1.02] tracking-tight sm:text-[3.4rem]">
+      <h1 className="font-display text-[2rem] font-extrabold leading-[1.08] sm:text-[2.7rem]">
         <span className="line-mask">
           <span>{title}</span>
         </span>

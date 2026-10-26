@@ -52,7 +52,7 @@ export default function Page() {
 
       <section className="mt-24 grid gap-10 lg:grid-cols-2">
         <div data-reveal className="max-w-prose space-y-4">
-          <h2 className="font-display text-3xl font-bold">Comment le calcul est fait</h2>
+          <h2 className="font-display text-2xl font-bold">Comment le calcul est fait</h2>
           <p>
             L'article L441-10 du Code de commerce prévoit que les pénalités courent dès le lendemain de la date
             d'échéance. Elles se calculent en intérêts simples :
@@ -76,7 +76,7 @@ export default function Page() {
           </p>
         </div>
         <div data-reveal style={{ "--i": 1 } as React.CSSProperties}>
-          <h2 className="font-display text-2xl font-bold">Taux par semestre</h2>
+          <h2 className="font-display text-xl font-bold">Taux par semestre</h2>
           <div className="mt-4 overflow-x-auto">
             <table className="num w-full text-left text-sm">
               <thead className="text-muted">

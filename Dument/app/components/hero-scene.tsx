@@ -39,7 +39,7 @@ export function HeroScene() {
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-sm text-muted">Facture</p>
-            <p className="num font-display text-2xl font-bold">F-2026-041</p>
+            <p className="num font-display text-xl font-bold">F-2026-041</p>
             <p className="text-sm text-muted">Atelier Nord, échue le 30 septembre</p>
           </div>
           <span

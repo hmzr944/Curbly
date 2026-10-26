@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Public_Sans } from "next/font/google";
+import { Onest, Unbounded } from "next/font/google";
 import { SITE } from "@/lib/site";
 import { Footer } from "./components/footer";
 import { Nav } from "./components/nav";
 import { RevealObserver } from "./components/reveal-observer";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-bricolage", display: "swap" });
-const publicSans = Public_Sans({ subsets: ["latin"], variable: "--font-public", display: "swap" });
+// Unbounded: wide, round, heavy display face whose circles echo the logo. Onest: sturdy text face for reading.
+const unbounded = Unbounded({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-unbounded", display: "swap" });
+const onest = Onest({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-onest", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${bricolage.variable} ${publicSans.variable}`} suppressHydrationWarning>
+    <html lang="fr" className={`${unbounded.variable} ${onest.variable}`} suppressHydrationWarning>
       <head>
         {/* Scroll-reveal styles only apply once JS runs, so content is never hidden without it. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

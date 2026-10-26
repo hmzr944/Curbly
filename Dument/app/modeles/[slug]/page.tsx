@@ -67,13 +67,13 @@ export default function Page({ params }: { params: { slug: string } }) {
       </div>
 
       <section className="mt-12">
-        <h2 data-reveal className="no-print mb-6 font-display text-3xl font-bold">Le modèle, prêt à personnaliser</h2>
+        <h2 data-reveal className="no-print mb-6 font-display text-2xl font-bold">Le modèle, prêt à personnaliser</h2>
         <LetterGenerator initialStage={m.stage} />
       </section>
 
       <section className="no-print mt-16 grid gap-10 md:grid-cols-2">
         <div data-reveal className="card p-6">
-          <h2 className="font-display text-2xl font-bold">Ce qui fait la différence</h2>
+          <h2 className="font-display text-xl font-bold">Ce qui fait la différence</h2>
           <ul className="mt-4 space-y-3">
             {m.advice.map((a) => (
               <li key={a} className="flex gap-3">
@@ -84,7 +84,7 @@ export default function Page({ params }: { params: { slug: string } }) {
           </ul>
         </div>
         <div data-reveal style={{ "--i": 1 } as React.CSSProperties} className="card p-6">
-          <h2 className="font-display text-2xl font-bold">Les erreurs à éviter</h2>
+          <h2 className="font-display text-xl font-bold">Les erreurs à éviter</h2>
           <ul className="mt-4 space-y-3">
             {m.mistakes.map((a) => (
               <li key={a} className="flex gap-3">
@@ -97,7 +97,7 @@ export default function Page({ params }: { params: { slug: string } }) {
       </section>
 
       <section data-reveal className="no-print mt-16 max-w-prose">
-        <h2 className="font-display text-2xl font-bold">Questions fréquentes</h2>
+        <h2 className="font-display text-xl font-bold">Questions fréquentes</h2>
         <div className="mt-4 space-y-5">
           {m.faq.map((f) => (
             <div key={f.q}>

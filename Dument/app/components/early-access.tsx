@@ -41,7 +41,7 @@ export function EarlyAccess() {
         <svg viewBox="0 0 24 24" className="h-12 w-12 rounded-full bg-brand p-2.5 text-white" aria-hidden>
           <path className="draw-check" d="M5 12.5l4.2 4L19 7" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        <p className="font-display text-2xl font-bold">C'est noté. On vous écrit dès que votre accès est prêt.</p>
+        <p className="font-display text-xl font-bold">C'est noté. On vous écrit dès que votre accès est prêt.</p>
         <p className="text-muted">
           Vous connaissez un indépendant qui court après ses factures ? Envoyez-lui ce lien : chaque inscription faite avec
           vous fait avancer votre place dans la file.

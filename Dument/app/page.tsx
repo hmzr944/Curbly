@@ -54,10 +54,10 @@ export default function Home() {
       <section className="relative isolate overflow-hidden">
         <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] items-center gap-14 px-4 pb-20 pt-10 sm:px-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:pb-28 lg:pt-16">
           <div>
-            <h1 className="font-display text-[2.6rem] font-extrabold leading-[1] tracking-tight sm:text-[3.6rem]">
+            <h1 className="font-display text-[1.7rem] font-extrabold leading-[1.08] min-[400px]:text-[1.95rem] sm:text-[3.05rem]">
               {["Faites-vous payer", "sans passer vos", "soirées à relancer."].map((line, i) => (
                 <span key={line} className="line-mask">
-                  <span style={{ "--i": i } as React.CSSProperties}>{line}</span>
+                  <span style={{ "--i": i } as React.CSSProperties} className="whitespace-nowrap">{line}</span>
                 </span>
               ))}
             </h1>
@@ -106,7 +106,7 @@ export default function Home() {
       {/* Calculator */}
       <section className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <div data-reveal className="space-y-5">
-          <h2 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Combien votre client vous doit déjà ?</h2>
+          <h2 className="font-display text-[1.9rem] font-extrabold leading-[1.1] sm:text-[2.6rem]">Combien votre client vous doit déjà ?</h2>
           <p className="max-w-md text-lg text-muted">
             Entre professionnels, chaque jour de retard coûte des pénalités à votre client, plus 40 € d'indemnité par
             facture. La loi le prévoit, même si personne ne le réclame.
@@ -124,7 +124,7 @@ export default function Home() {
       <section className="border-y border-rule bg-sheet">
         <div className="relative mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-14 px-4 py-24 sm:px-6 lg:grid-cols-[minmax(0,1fr)_21rem]">
           <div>
-            <h2 data-reveal className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
+            <h2 data-reveal className="font-display text-[1.9rem] font-extrabold leading-[1.1] sm:text-[2.6rem]">
               Une séquence qui tient la distance à votre place
             </h2>
             <p data-reveal className="mt-4 max-w-xl text-muted" style={{ "--i": 1 } as React.CSSProperties}>
@@ -148,7 +148,7 @@ export default function Home() {
                     {s.offset < 0 ? `J${s.offset}` : `J+${s.offset}`}
                   </span>
                   <div>
-                    <p className="font-display text-xl font-bold">
+                    <p className="font-display text-lg font-bold">
                       {s.label}
                       {s.requiresApproval && (
                         <span className="ml-2 inline-block rounded-full bg-brand-soft px-2.5 py-0.5 align-middle font-sans text-xs font-semibold text-brand-ink">
@@ -164,7 +164,7 @@ export default function Home() {
           </div>
           <div data-reveal className="card relative h-fit self-center bg-paper p-6 pb-24">
             <p className="text-sm text-muted">Facture</p>
-            <p className="num font-display text-xl font-bold">F-2026-041</p>
+            <p className="num font-display text-lg font-bold">F-2026-041</p>
             <dl className="num mt-5 space-y-2 text-sm">
               <div className="flex justify-between"><dt className="text-muted">Client</dt><dd>Atelier Nord</dd></div>
               <div className="flex justify-between"><dt className="text-muted">Échéance</dt><dd>30 septembre</dd></div>
@@ -180,7 +180,7 @@ export default function Home() {
 
       {/* Promises */}
       <section className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
-        <h2 data-reveal className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Vous gardez la main</h2>
+        <h2 data-reveal className="font-display text-[1.9rem] font-extrabold leading-[1.1] sm:text-[2.6rem]">Vous gardez la main</h2>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {promises.map((p, i) => (
             <div key={p.title} data-reveal style={{ "--i": i } as React.CSSProperties} className="card p-7">
@@ -189,7 +189,7 @@ export default function Home() {
                   <path d={p.icon} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
-              <h3 className="mt-5 font-display text-xl font-bold">{p.title}</h3>
+              <h3 className="mt-5 font-display text-lg font-bold">{p.title}</h3>
               <p className="mt-2 text-muted">{p.body}</p>
             </div>
           ))}
@@ -203,7 +203,7 @@ export default function Home() {
           className="relative mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-10 overflow-hidden rounded-[28px] bg-brand px-6 py-14 text-white sm:px-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
         >
           <div className="relative space-y-4">
-            <h2 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">L'envoi automatique arrive bientôt</h2>
+            <h2 className="font-display text-[1.9rem] font-extrabold leading-[1.1] sm:text-[2.6rem]">L'envoi automatique arrive bientôt</h2>
             <p className="text-white/85">
               Les outils de calcul et de rédaction sont déjà gratuits. Le suivi automatique de vos factures ouvre d'abord à
               un petit groupe d'indépendants, pour le construire avec eux.

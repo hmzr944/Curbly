@@ -108,7 +108,7 @@ export function PenaltyCalculator({ compact = false }: { compact?: boolean }) {
             <p className="text-sm text-muted">
               Votre client vous doit, en plus des {euros(value)} de la facture&nbsp;:
             </p>
-            <p className="num font-display mt-1 text-5xl font-extrabold text-late sm:text-6xl">
+            <p className="num font-display mt-1 text-[2.6rem] font-extrabold text-late sm:text-5xl">
               <CountUp value={result.total} />
             </p>
             <dl className="num mt-4 grid gap-1.5 text-sm">
