@@ -1,43 +1,71 @@
 @import "tailwindcss";
 
+/*
+ * Identity: three brand colours that tell an invoice's story.
+ * - Indigo Dûment (brand): every action — buttons, links, focus, strong bands.
+ * - Corail Relance (late): what is owed — late amounts, penalties, reminder steps, link underlines.
+ * - Vert Payé (paid): the outcome — paid stamp, checks, confirmations, logo accent.
+ * The "-ink" variants are darker shades for small text, to keep 4.5:1 contrast.
+ */
 @theme {
-  --color-paper: #f3f5f2;
+  --color-brand: #4f3bff;
+  --color-brand-ink: #3a27d6;
+  --color-brand-soft: #ebe8ff;
+  --color-late: #ff6b4a;
+  --color-late-ink: #c23a1b;
+  --color-late-soft: #ffe9e3;
+  --color-paid: #12b886;
+  --color-paid-ink: #08785a;
+  --color-paid-soft: #dcf6ec;
+
+  --color-paper: #f7f6ff;
   --color-sheet: #ffffff;
-  --color-ink: #14213d;
-  --color-muted: #566074;
-  --color-rule: #d3d9d1;
-  --color-paid: #17734a;
-  --color-paid-soft: #e1f0e7;
-  --color-late: #b93a12;
-  --color-late-soft: #fbe9e2;
+  --color-ink: #17143b;
+  --color-muted: #5c5a7a;
+  --color-rule: #e2dff4;
+  --color-night: #15113a;
 
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-public), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-paper: #0f1626;
-    --color-sheet: #172036;
-    --color-ink: #e8ecf3;
-    --color-muted: #9aa5b8;
-    --color-rule: #2b3650;
-    --color-paid: #4cc38a;
-    --color-paid-soft: #16352a;
-    --color-late: #f08b62;
-    --color-late-soft: #3a2018;
+    --color-brand: #8a7bff;
+    --color-brand-ink: #a99fff;
+    --color-brand-soft: #262056;
+    --color-late: #ff8466;
+    --color-late-ink: #ff9a80;
+    --color-late-soft: #3d1f22;
+    --color-paid: #34d3a0;
+    --color-paid-ink: #5fe0b6;
+    --color-paid-soft: #123a33;
+    --color-paper: #0e0b24;
+    --color-sheet: #18143a;
+    --color-ink: #efedff;
+    --color-muted: #a4a1c4;
+    --color-rule: #2c2760;
+    --color-night: #1d1850;
   }
 }
 
 html {
   -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-feature-settings: "tnum" 0;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: #fff;
 }
 
 .num {
@@ -45,24 +73,149 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-paid);
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.75rem 1.4rem;
+  font-weight: 650;
+  line-height: 1.2;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--color-brand);
+  color: #fff;
+  box-shadow: 0 8px 22px -12px var(--color-brand);
+}
+
+.btn-secondary {
+  border: 1.5px solid var(--color-brand);
+  color: var(--color-brand-ink);
+}
+
+.btn-light {
+  background: #fff;
+  color: var(--color-night);
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background: var(--color-brand-ink);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px -12px var(--color-brand);
+  }
+  .btn-secondary:hover {
+    background: var(--color-brand-soft);
+  }
+  .btn-light:hover {
+    transform: translateY(-1px);
+  }
+}
+
+/* ---------- Links: brand text, coral underline that draws on hover ---------- */
+
+.link {
+  color: var(--color-brand-ink);
+  font-weight: 600;
+  background-image: linear-gradient(var(--color-late), var(--color-late));
+  background-size: 100% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 1px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link {
+    background-size: 0% 2px;
+    transition: background-size 260ms var(--ease-out);
+  }
+  .link:hover {
+    background-size: 100% 2px;
+  }
+}
+
+/* ---------- Pills (stage pickers, choices) ---------- */
+
+.pill {
+  border-radius: 999px;
+  border: 1.5px solid var(--color-rule);
+  background: var(--color-sheet);
+  padding: 0.4rem 0.9rem;
+  font-size: 0.875rem;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.pill:active {
+  transform: scale(0.96);
+}
+
+.pill[aria-pressed="true"],
+.pill[data-active="true"] {
+  border-color: var(--color-brand);
+  background: var(--color-brand);
+  color: #fff;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pill:not([aria-pressed="true"]):not([data-active="true"]):hover {
+    border-color: var(--color-brand);
+  }
+}
+
+/* ---------- Form fields ---------- */
 
 .field {
   width: 100%;
-  border: 1px solid var(--color-rule);
+  border: 1.5px solid var(--color-rule);
   background: var(--color-sheet);
-  border-radius: 8px;
-  padding: 0.6rem 0.75rem;
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
   font-size: 1rem;
   color: var(--color-ink);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .field:focus {
-  border-color: var(--color-ink);
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 4px var(--color-brand-soft);
   outline: none;
+}
+
+.card {
+  border: 1px solid var(--color-rule);
+  background: var(--color-sheet);
+  border-radius: 22px;
+  box-shadow: 0 24px 50px -36px rgb(40 30 140 / 0.45);
 }
 
 .prose-letter {
@@ -71,21 +224,191 @@ body {
   line-height: 1.65;
 }
 
+/* ---------- Scroll reveal (only when JS is running, so content never stays hidden) ---------- */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 700ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.js [data-reveal][data-shown] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Headline: each line slides up from behind a mask on load. */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.line-mask > span {
+  display: block;
+  animation: line-up 900ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 80ms);
+}
+
+@keyframes line-up {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.fade-up {
+  animation: fade-up 800ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 300ms);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Timeline line draws itself when the section comes into view. */
+.js .draw-y {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1400ms var(--ease-in-out) 200ms;
+}
+
+.js [data-shown] .draw-y,
+.js .draw-y[data-shown] {
+  transform: scaleY(1);
+}
+
+/* Paid stamp. */
 @keyframes stamp {
-  0% { opacity: 0; transform: rotate(-14deg) scale(1.8); }
-  60% { opacity: 1; transform: rotate(-9deg) scale(0.94); }
-  100% { opacity: 1; transform: rotate(-9deg) scale(1); }
+  0% {
+    opacity: 0;
+    transform: rotate(-16deg) scale(1.7);
+  }
+  60% {
+    opacity: 1;
+    transform: rotate(-9deg) scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-9deg) scale(1);
+  }
 }
 
 .stamp {
-  animation: stamp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  transform: rotate(-9deg);
+}
+
+.js [data-shown] .stamp,
+.stamp[data-play] {
+  animation: stamp 520ms var(--ease-out) both;
+}
+
+.js [data-reveal]:not([data-shown]) .stamp {
+  opacity: 0;
+}
+
+/* Check mark drawn with its stroke. */
+.draw-check {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: draw 500ms var(--ease-out) 150ms forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Slow drifting blobs behind the hero. */
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(3%, -4%, 0) scale(1.06);
+  }
+}
+
+.blob {
+  animation: drift 16s ease-in-out infinite;
+  filter: blur(60px);
+}
+
+/* Marquee of who it is for. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  animation: marquee 38s linear infinite;
+}
+
+/* Hero scene messages. */
+.msg {
+  transition:
+    opacity 420ms var(--ease-out),
+    transform 420ms var(--ease-out);
+}
+
+.msg[data-state="hidden"] {
+  opacity: 0;
+  transform: translateY(14px) scale(0.97);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stamp { animation: none; transform: rotate(-9deg); }
+  html {
+    scroll-behavior: auto;
+  }
+  .line-mask > span,
+  .fade-up,
+  .blob,
+  .marquee,
+  .draw-check,
+  .js [data-shown] .stamp,
+  .stamp[data-play] {
+    animation: none !important;
+  }
+  .draw-check {
+    stroke-dashoffset: 0;
+  }
+  .js [data-reveal] {
+    transform: none;
+    transition: opacity 300ms ease;
+  }
+  .js .draw-y {
+    transform: none;
+    transition: none;
+  }
+  .msg {
+    transition: opacity 200ms ease;
+  }
+  .msg[data-state="hidden"] {
+    transform: none;
+  }
 }
 
 @media print {
-  .no-print { display: none !important; }
-  body { background: #fff; color: #000; }
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
 }

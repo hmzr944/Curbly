@@ -38,6 +38,9 @@ export function EarlyAccess() {
   if (state === "done") {
     return (
       <div className="space-y-3">
+        <svg viewBox="0 0 24 24" className="h-12 w-12 rounded-full bg-paid p-2.5 text-white" aria-hidden>
+          <path className="draw-check" d="M5 12.5l4.2 4L19 7" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
         <p className="font-display text-2xl font-bold">C'est noté. On vous écrit dès que votre accès est prêt.</p>
         <p className="text-muted">
           Vous connaissez un indépendant qui court après ses factures ? Envoyez-lui ce lien : chaque inscription faite avec
@@ -47,7 +50,7 @@ export function EarlyAccess() {
           <input readOnly value={link} className="field num max-w-md" aria-label="Votre lien de parrainage" />
           <button
             type="button"
-            className="rounded-lg border border-rule px-4 py-2 text-sm hover:border-ink"
+            className="btn btn-secondary btn-sm"
             onClick={async () => {
               await navigator.clipboard.writeText(link);
               setCopied(true);
@@ -70,7 +73,7 @@ export function EarlyAccess() {
         <legend className="mb-2 font-medium">Combien de factures payées en retard par mois, en moyenne ?</legend>
         <div className="flex flex-wrap gap-2">
           {["0", "1-2", "3-10", "10+"].map((v) => (
-            <label key={v} className={`cursor-pointer rounded-full border px-3 py-1.5 ${volume === v ? "border-ink bg-ink text-paper" : "border-rule bg-sheet"}`}>
+            <label key={v} data-active={volume === v} className="pill cursor-pointer has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand">
               <input type="radio" name="volume" value={v} className="sr-only" checked={volume === v} onChange={() => setVolume(v)} />
               {v === "0" ? "Aucune" : v}
             </label>
@@ -78,10 +81,10 @@ export function EarlyAccess() {
         </div>
       </fieldset>
       <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
-      <button type="submit" disabled={state === "sending"} className="rounded-lg bg-ink px-5 py-2.5 font-semibold text-paper hover:opacity-90 disabled:opacity-60 sm:w-fit">
+      <button type="submit" disabled={state === "sending"} className="btn btn-primary disabled:opacity-60 sm:w-fit">
         {state === "sending" ? "Inscription…" : "Demander mon accès"}
       </button>
-      {error && <p className="text-sm text-late sm:col-span-2" role="alert">{error}</p>}
+      {error && <p className="text-sm text-late-ink sm:col-span-2" role="alert">{error}</p>}
       <p className="text-xs text-muted sm:col-span-2">
         Votre email sert uniquement à vous prévenir de l'ouverture. Désinscription en un clic.
       </p>

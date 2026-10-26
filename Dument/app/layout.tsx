@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, Public_Sans } from "next/font/google";
 import { SITE } from "@/lib/site";
 import { Footer } from "./components/footer";
 import { Nav } from "./components/nav";
+import { RevealObserver } from "./components/reveal-observer";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-bricolage", display: "swap" });
@@ -17,11 +18,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${bricolage.variable} ${publicSans.variable}`}>
+    <html lang="fr" className={`${bricolage.variable} ${publicSans.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Scroll-reveal styles only apply once JS runs, so content is never hidden without it. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
       <body className="min-h-dvh flex flex-col antialiased">
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
+        <RevealObserver />
       </body>
     </html>
   );

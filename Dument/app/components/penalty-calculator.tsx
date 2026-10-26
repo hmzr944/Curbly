@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { addDays, euros, frenchDate } from "@/lib/dates";
 import { computePenalties, fmtRate } from "@/lib/penalties";
+import { CountUp } from "./count-up";
 import type { RateMode } from "@/lib/rates";
 
 function today() {
@@ -41,7 +42,7 @@ export function PenaltyCalculator({ compact = false }: { compact?: boolean }) {
   );
 
   return (
-    <div className="rounded-2xl border border-rule bg-sheet p-5 shadow-[0_1px_0_var(--color-rule)] sm:p-6">
+    <div className="card p-5 sm:p-7">
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="space-y-1.5 text-sm">
           <span className="font-medium">Montant TTC impayé</span>
@@ -76,7 +77,7 @@ export function PenaltyCalculator({ compact = false }: { compact?: boolean }) {
                 ] as const
               ).map(([m, label]) => (
                 <label key={m} className="flex items-start gap-2.5">
-                  <input type="radio" name="mode" className="mt-1 accent-[var(--color-ink)]" checked={mode === m} onChange={() => setMode(m)} />
+                  <input type="radio" name="mode" className="mt-1 accent-[var(--color-brand)]" checked={mode === m} onChange={() => setMode(m)} />
                   <span>{label}</span>
                 </label>
               ))}
@@ -97,7 +98,7 @@ export function PenaltyCalculator({ compact = false }: { compact?: boolean }) {
         )}
       </div>
 
-      <div className="mt-6 border-t border-dashed border-rule pt-5" aria-live="polite">
+      <div className="mt-6 border-t-2 border-dashed border-rule pt-5" aria-live="polite">
         {!result ? (
           <p className="text-sm text-muted">Indiquez un montant et une date d'échéance.</p>
         ) : result.daysLate === 0 ? (
@@ -107,7 +108,9 @@ export function PenaltyCalculator({ compact = false }: { compact?: boolean }) {
             <p className="text-sm text-muted">
               Votre client vous doit, en plus des {euros(value)} de la facture&nbsp;:
             </p>
-            <p className="num font-display mt-1 text-4xl font-bold text-late sm:text-5xl">{euros(result.total)}</p>
+            <p className="num font-display mt-1 text-5xl font-extrabold text-late sm:text-6xl">
+              <CountUp value={result.total} />
+            </p>
             <dl className="num mt-4 grid gap-1.5 text-sm">
               <div className="flex justify-between gap-4">
                 <dt className="text-muted">Retard</dt>
@@ -128,11 +131,11 @@ export function PenaltyCalculator({ compact = false }: { compact?: boolean }) {
               </div>
             </dl>
             {result.warnings.map((w) => (
-              <p key={w} className="mt-3 rounded-lg bg-late-soft px-3 py-2 text-sm">{w}</p>
+              <p key={w} className="mt-3 rounded-xl bg-late-soft px-3 py-2 text-sm text-late-ink">{w}</p>
             ))}
             <Link
               href={`/outils/lettre-de-relance?montant=${value}&echeance=${dueDate}`}
-              className="mt-5 inline-block rounded-lg bg-ink px-4 py-2.5 text-sm font-semibold text-paper hover:opacity-90"
+              className="btn btn-primary btn-sm mt-6"
             >
               Réclamer cette somme dans une relance
             </Link>

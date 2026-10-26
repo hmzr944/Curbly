@@ -91,9 +91,7 @@ export function LetterGenerator({ initialStage = "first" }: { initialStage?: Sta
                 type="button"
                 onClick={() => setStageId(s.id)}
                 aria-pressed={stageId === s.id}
-                className={`rounded-full border px-3 py-1.5 text-sm ${
-                  stageId === s.id ? "border-ink bg-ink text-paper" : "border-rule bg-sheet hover:border-ink"
-                }`}
+                className="pill"
               >
                 {s.label}
               </button>
@@ -116,36 +114,37 @@ export function LetterGenerator({ initialStage = "first" }: { initialStage?: Sta
         </label>
         {!isNotice && (
           <label className="flex items-start gap-2.5 text-sm text-muted">
-            <input type="checkbox" className="mt-1 accent-[var(--color-ink)]" checked={footer} onChange={(e) => setFooter(e.target.checked)} />
+            <input type="checkbox" className="mt-1 accent-[var(--color-brand)]" checked={footer} onChange={(e) => setFooter(e.target.checked)} />
             <span>Ajouter une ligne discrète mentionnant Dûment en bas du message. C'est ce qui garde l'outil gratuit.</span>
           </label>
         )}
       </form>
 
-      <article className="rounded-2xl border border-rule bg-sheet p-5 sm:p-7 print:border-0 print:p-0">
+      <article className="card relative overflow-hidden p-5 sm:p-7 print:border-0 print:p-0 print:shadow-none">
+        <span aria-hidden className="no-print absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-brand via-late to-paid" />
         <div className="no-print mb-4 flex flex-wrap items-center gap-2">
           {!isNotice && (
-            <a href={mailto} className="rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-paper hover:opacity-90">
+            <a href={mailto} className="btn btn-primary btn-sm">
               Ouvrir dans ma messagerie
             </a>
           )}
           {isNotice && (
-            <button type="button" onClick={() => window.print()} className="rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-paper hover:opacity-90">
+            <button type="button" onClick={() => window.print()} className="btn btn-primary btn-sm">
               Imprimer ou enregistrer en PDF
             </button>
           )}
-          <button type="button" onClick={() => copy("subject")} className="rounded-lg border border-rule px-3 py-2 text-sm hover:border-ink">
+          <button type="button" onClick={() => copy("subject")} className="btn btn-secondary btn-sm">
             {copied === "subject" ? "Objet copié" : "Copier l'objet"}
           </button>
-          <button type="button" onClick={() => copy("body")} className="rounded-lg border border-rule px-3 py-2 text-sm hover:border-ink">
+          <button type="button" onClick={() => copy("body")} className="btn btn-secondary btn-sm">
             {copied === "body" ? "Texte copié" : "Copier le texte"}
           </button>
         </div>
         <p className="text-sm text-muted">Objet</p>
-        <p className="mb-4 font-semibold">{letter.subject}</p>
+        <p className="mb-4 font-display text-lg font-bold">{letter.subject}</p>
         <div className="prose-letter">{letter.body}</div>
         {isNotice && (
-          <p className="no-print mt-6 rounded-lg bg-late-soft px-3 py-2 text-sm">
+          <p className="no-print mt-6 rounded-xl bg-late-soft px-3 py-2 text-sm text-late-ink">
             Envoyez la mise en demeure en lettre recommandée avec accusé de réception (papier ou électronique) : c'est elle
             qui fait courir les délais et qui servira de preuve devant le juge.
           </p>

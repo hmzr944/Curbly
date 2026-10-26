@@ -1,15 +1,24 @@
-/** Wordmark: the circumflex of "û" doubles as a check mark, the sign of an invoice settled. */
+/**
+ * Mark: an indigo tile holding a "û" whose circumflex is a green check, the sign of an invoice settled.
+ * The wordmark repeats the idea on the "û".
+ */
+export function LogoMark({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 40 40" aria-hidden className={className}>
+      <rect width="40" height="40" rx="11" fill="var(--color-brand)" />
+      <path d="M12.5 17v6.2a7.5 7.5 0 0 0 15 0V17" fill="none" stroke="#fff" strokeWidth="4.2" strokeLinecap="round" />
+      <path d="M14.5 10.6 18.6 14l7-6.6" fill="none" stroke="var(--color-paid)" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <span className={`font-display text-[1.35rem] font-bold tracking-tight ${className}`} aria-label="Dûment">
-      D
-      <span className="relative inline-block">
-        u
-        <svg aria-hidden viewBox="0 0 12 8" className="absolute left-1/2 -translate-x-1/2 -top-[0.08em] w-[0.6em] text-paid">
-          <path d="M1.5 4.2 4.6 6.8 10.5 1.2" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+    <span className={`inline-flex items-center gap-2 ${className}`} aria-label="Dûment">
+      <LogoMark className="h-8 w-8" />
+      <span aria-hidden className="font-display text-[1.4rem] font-extrabold tracking-tight">
+        Dûment
       </span>
-      ment
     </span>
   );
 }

@@ -5,6 +5,7 @@ import { fmtRate } from "@/lib/penalties";
 import { RATES, RATES_UPDATED_AT, type Semester } from "@/lib/rates";
 import { absolute } from "@/lib/site";
 import { JsonLd } from "../../components/json-ld";
+import { PageHeader } from "../../components/page-header";
 import { PenaltyCalculator } from "../../components/penalty-calculator";
 
 export const metadata: Metadata = {
@@ -30,29 +31,35 @@ export default function Page() {
         }}
       />
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-        <div className="space-y-5">
-          <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
-            Calcul des pénalités de retard de paiement
-          </h1>
-          <p className="max-w-prose text-lg text-muted">
-            Entre professionnels, une facture payée en retard donne droit à des pénalités et à une indemnité forfaitaire
-            de 40 €, sans démarche préalable. Voici combien votre client vous doit déjà.
-          </p>
-          <p className="max-w-prose text-sm text-muted">
-            Le calcul se fait dans votre navigateur : aucune donnée n'est envoyée. Taux à jour au {frenchDate(RATES_UPDATED_AT)}.
-          </p>
+        <PageHeader
+          tone="late"
+          title="Calcul des pénalités de retard de paiement"
+          intro={
+            <>
+              <p>
+                Entre professionnels, une facture payée en retard donne droit à des pénalités et à une indemnité
+                forfaitaire de 40 €, sans démarche préalable. Voici combien votre client vous doit déjà.
+              </p>
+              <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-paid-soft px-3 py-1 text-sm text-paid-ink">
+                <span className="h-1.5 w-1.5 rounded-full bg-paid" aria-hidden />
+                Calcul dans votre navigateur, taux à jour au {frenchDate(RATES_UPDATED_AT)}
+              </p>
+            </>
+          }
+        />
+        <div className="fade-up" style={{ "--i": 2 } as React.CSSProperties}>
+          <PenaltyCalculator />
         </div>
-        <PenaltyCalculator />
       </div>
 
-      <section className="mt-20 grid gap-10 lg:grid-cols-2">
-        <div className="max-w-prose space-y-4">
-          <h2 className="font-display text-2xl font-bold">Comment le calcul est fait</h2>
+      <section className="mt-24 grid gap-10 lg:grid-cols-2">
+        <div data-reveal className="max-w-prose space-y-4">
+          <h2 className="font-display text-3xl font-bold">Comment le calcul est fait</h2>
           <p>
             L'article L441-10 du Code de commerce prévoit que les pénalités courent dès le lendemain de la date
             d'échéance. Elles se calculent en intérêts simples :
           </p>
-          <p className="rounded-lg border border-rule bg-sheet px-4 py-3 font-medium">
+          <p className="rounded-2xl border-l-4 border-late bg-sheet px-4 py-3 font-semibold">
             montant TTC × taux annuel × nombre de jours de retard ÷ 365
           </p>
           <p>
@@ -70,7 +77,7 @@ export default function Page() {
             légal sont dus, après mise en demeure.
           </p>
         </div>
-        <div>
+        <div data-reveal style={{ "--i": 1 } as React.CSSProperties}>
           <h2 className="font-display text-2xl font-bold">Taux par semestre</h2>
           <div className="mt-4 overflow-x-auto">
             <table className="num w-full text-left text-sm">
@@ -90,7 +97,7 @@ export default function Page() {
                     <tr key={s} className="border-b border-rule">
                       <td className="py-2 pr-4">{h === "1" ? "1er" : "2e"} semestre {y}</td>
                       <td className="py-2 pr-4">{fmtRate(r.ecb)}</td>
-                      <td className="py-2 pr-4 font-semibold">{fmtRate(r.ecb + 10)}</td>
+                      <td className="py-2 pr-4 font-semibold text-late-ink">{fmtRate(r.ecb + 10)}</td>
                       <td className="py-2">{fmtRate(Math.round(r.legalPro * 300) / 100)}</td>
                     </tr>
                   );
@@ -99,7 +106,7 @@ export default function Page() {
             </table>
           </div>
           <p className="mt-6">
-            Prêt à réclamer ? <Link href="/modeles/derniere-relance-avant-mise-en-demeure" className="font-semibold underline underline-offset-4">Voir le modèle de dernière relance avec pénalités</Link>.
+            Prêt à réclamer ? <Link href="/modeles/derniere-relance-avant-mise-en-demeure" className="link">Voir le modèle de dernière relance avec pénalités</Link>.
           </p>
         </div>
       </section>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { STAGES } from "@/lib/sequence";
 import { SITE } from "@/lib/site";
 import { EarlyAccess } from "./components/early-access";
+import { HeroScene } from "./components/hero-scene";
 import { JsonLd } from "./components/json-ld";
 import { PenaltyCalculator } from "./components/penalty-calculator";
 
@@ -12,6 +13,29 @@ const examples: Record<string, string> = {
   final: "« À ce jour, les pénalités de retard s'élèvent à 64,46 €. »",
   "formal-notice": "Lettre recommandée prête à envoyer, montants détaillés.",
 };
+
+const audiences = ["Freelances", "Artisans", "Agences", "Consultants", "Développeurs", "Graphistes", "Architectes", "Formateurs", "TPE"];
+
+const promises = [
+  {
+    title: "Vos messages, votre adresse",
+    body: "Les relances partent de votre boîte mail, signées de votre nom, dans le fil de la facture. Votre client vous répond directement.",
+    color: "bg-brand",
+    icon: "M4 7l8 6 8-6M5 5h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z",
+  },
+  {
+    title: "Rien de grave sans votre accord",
+    body: "La mise en demeure attend votre validation. Un client fidèle qui traverse une passe difficile ? Mettez sa séquence en pause en un clic.",
+    color: "bg-late",
+    icon: "M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z",
+  },
+  {
+    title: "L'argent ne passe pas par nous",
+    body: "Dûment est un logiciel, pas une agence de recouvrement : votre client vous paie directement et nous ne prenons aucune commission.",
+    color: "bg-paid",
+    icon: "M3 10h18M5 10V19M19 10v9M9 10v9M15 10v9M2 21h20M12 3l9 5H3l9-5z",
+  },
+];
 
 export default function Home() {
   return (
@@ -29,61 +53,127 @@ export default function Home() {
         }}
       />
 
-      <section className="mx-auto grid max-w-6xl gap-12 px-4 pb-20 pt-14 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] lg:pt-20">
-        <div className="space-y-6">
-          <h1 className="font-display text-[2.6rem] font-bold leading-[1.02] tracking-tight sm:text-6xl">
-            Faites-vous payer sans passer vos soirées à relancer.
-          </h1>
-          <p className="max-w-xl text-lg text-muted">
-            Dûment envoie vos relances au bon moment, depuis votre propre adresse, calcule les pénalités de retard prévues
-            par la loi et prépare la mise en demeure. Vous validez les étapes sensibles et l'argent arrive directement sur
-            votre compte.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link href="#acces" className="rounded-lg bg-ink px-5 py-3 font-semibold text-paper hover:opacity-90">
-              Demander l'accès anticipé
-            </Link>
-            <Link href="/outils/lettre-de-relance" className="rounded-lg border border-ink px-5 py-3 font-semibold hover:bg-sheet">
-              Rédiger une relance maintenant
-            </Link>
-          </div>
-          <p className="text-sm text-muted">Pour les freelances, artisans, agences et TPE qui facturent d'autres entreprises.</p>
+      {/* Hero */}
+      <section className="relative isolate overflow-hidden">
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+          <div className="blob absolute -left-24 top-10 h-72 w-72 rounded-full bg-brand/30" />
+          <div className="blob absolute right-0 top-0 h-80 w-80 rounded-full bg-late/25 [animation-delay:-5s]" />
+          <div className="blob absolute bottom-0 left-1/2 h-64 w-64 rounded-full bg-paid/25 [animation-delay:-10s]" />
         </div>
-        <div>
-          <p className="mb-3 font-display text-lg font-bold">Combien votre client vous doit déjà ?</p>
+        <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] items-center gap-14 px-4 pb-20 pt-10 sm:px-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:pb-28 lg:pt-16">
+          <div>
+            <h1 className="font-display text-[2.6rem] font-extrabold leading-[1] tracking-tight sm:text-[3.6rem]">
+              {["Faites-vous payer", "sans passer vos", "soirées à relancer."].map((line, i) => (
+                <span key={line} className="line-mask">
+                  <span style={{ "--i": i } as React.CSSProperties}>{line}</span>
+                </span>
+              ))}
+            </h1>
+            <p className="fade-up mt-6 max-w-xl text-lg text-muted" style={{ "--i": 1 } as React.CSSProperties}>
+              Dûment envoie vos relances au bon moment, depuis votre propre adresse, calcule les pénalités de retard prévues
+              par la loi et prépare la mise en demeure. Vous validez les étapes sensibles, l'argent arrive directement sur
+              votre compte.
+            </p>
+            <div className="fade-up mt-8 flex flex-wrap gap-3" style={{ "--i": 2 } as React.CSSProperties}>
+              <Link href="#acces" className="btn btn-primary">
+                Demander l'accès anticipé
+              </Link>
+              <Link href="/outils/lettre-de-relance" className="btn btn-secondary">
+                Rédiger une relance maintenant
+              </Link>
+            </div>
+            <ul className="fade-up mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm" style={{ "--i": 3 } as React.CSSProperties}>
+              {["Gratuit pour démarrer", "Envoyé depuis votre adresse", "Aucune commission"].map((t) => (
+                <li key={t} className="flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 rounded-full bg-paid-soft p-1 text-paid-ink" aria-hidden>
+                    <path className="draw-check" d="M5 12.5l4.2 4L19 7" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="fade-up" style={{ "--i": 2 } as React.CSSProperties}>
+            <HeroScene />
+          </div>
+        </div>
+      </section>
+
+      {/* Audience marquee */}
+      <div className="overflow-hidden bg-brand py-4 text-white" aria-label="Pour qui">
+        <div className="marquee flex w-max gap-10 pr-10">
+          {[...audiences, ...audiences].map((a, i) => (
+            <span key={i} className="flex items-center gap-10 font-display text-lg font-bold" aria-hidden={i >= audiences.length}>
+              {a}
+              <svg viewBox="0 0 12 8" className="h-3 w-4 text-paid" aria-hidden>
+                <path d="M1.5 4.2 4.6 6.8 10.5 1.2" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Calculator */}
+      <section className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <div data-reveal className="space-y-5">
+          <h2 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Combien votre client vous doit déjà ?</h2>
+          <p className="max-w-md text-lg text-muted">
+            Entre professionnels, chaque jour de retard coûte des pénalités à votre client, plus 40 € d'indemnité par
+            facture. La loi le prévoit, même si personne ne le réclame.
+          </p>
+          <Link href="/outils/calcul-penalites-de-retard" className="link">
+            Ouvrir le calculateur complet
+          </Link>
+        </div>
+        <div data-reveal style={{ "--i": 1 } as React.CSSProperties}>
           <PenaltyCalculator compact />
         </div>
       </section>
 
-      <section className="border-y border-rule bg-sheet">
-        <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
+      {/* Sequence */}
+      <section className="relative overflow-hidden bg-night text-white">
+        <div aria-hidden className="blob pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-brand/40" />
+        <div className="relative mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-14 px-4 py-24 sm:px-6 lg:grid-cols-[minmax(0,1fr)_21rem]">
           <div>
-            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">Une séquence qui tient la distance à votre place</h2>
-            <p className="mt-3 max-w-xl text-muted">
+            <h2 data-reveal className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
+              Une séquence qui tient la distance à votre place
+            </h2>
+            <p data-reveal className="mt-4 max-w-xl text-white/70" style={{ "--i": 1 } as React.CSSProperties}>
               Chaque facture suit la même progression, du rappel courtois à la mise en demeure. Dès que le paiement arrive,
               tout s'arrête.
             </p>
-            <ol className="mt-10 space-y-0">
+            <ol data-reveal className="relative mt-12">
+              <span aria-hidden className="draw-y absolute bottom-6 left-[2.2rem] top-4 w-0.5 rounded-full bg-gradient-to-b from-late via-late to-paid" />
               {STAGES.map((s, i) => (
-                <li key={s.id} className="grid grid-cols-[4.5rem_1fr] gap-4">
-                  <div className="relative">
-                    <span className="num block rounded-md border border-rule bg-paper py-1 text-center text-sm font-semibold">
-                      {s.offset < 0 ? `J${s.offset}` : `J+${s.offset}`}
-                    </span>
-                    {i < STAGES.length - 1 && <span aria-hidden className="absolute left-1/2 top-9 h-[calc(100%-2.25rem)] w-px bg-rule" />}
-                  </div>
-                  <div className="pb-8">
-                    <p className="font-semibold">
+                <li
+                  key={s.id}
+                  data-reveal
+                  style={{ "--i": i + 1 } as React.CSSProperties}
+                  className="relative grid grid-cols-[4.4rem_1fr] gap-5 pb-9 last:pb-0"
+                >
+                  <span
+                    className={`num relative z-10 h-fit rounded-full py-1 text-center text-sm font-bold ${
+                      s.requiresApproval ? "bg-white text-night" : "bg-late text-white"
+                    }`}
+                  >
+                    {s.offset < 0 ? `J${s.offset}` : `J+${s.offset}`}
+                  </span>
+                  <div>
+                    <p className="font-display text-xl font-bold">
                       {s.label}
-                      {s.requiresApproval && <span className="ml-2 rounded-full bg-late-soft px-2 py-0.5 text-xs font-medium text-late">Envoyée après votre accord</span>}
+                      {s.requiresApproval && (
+                        <span className="ml-2 inline-block rounded-full bg-paid px-2.5 py-0.5 align-middle font-sans text-xs font-semibold text-night">
+                          Envoyée après votre accord
+                        </span>
+                      )}
                     </p>
-                    <p className="mt-1 text-muted">{examples[s.id]}</p>
+                    <p className="mt-1 text-white/70">{examples[s.id]}</p>
                   </div>
                 </li>
               ))}
             </ol>
           </div>
-          <div className="relative h-fit self-center rounded-xl border border-rule bg-paper p-6 pb-24 shadow-[0_18px_40px_-24px_rgba(20,33,61,0.45)]">
+          <div data-reveal className="relative h-fit self-center rounded-[22px] bg-sheet p-6 pb-24 text-ink shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
             <p className="text-sm text-muted">Facture</p>
             <p className="num font-display text-xl font-bold">F-2026-041</p>
             <dl className="num mt-5 space-y-2 text-sm">
@@ -92,54 +182,55 @@ export default function Home() {
               <div className="flex justify-between"><dt className="text-muted">Relances</dt><dd>3 envoyées</dd></div>
               <div className="flex justify-between border-t border-rule pt-2 font-semibold"><dt>Montant</dt><dd>2 400,00 €</dd></div>
             </dl>
-            <span className="stamp absolute bottom-6 left-6 rounded-md border-[3px] border-paid px-3 py-1 font-display text-2xl font-extrabold text-paid">
+            <span className="stamp absolute bottom-6 left-6 rounded-xl border-[3px] border-paid px-3 py-1 font-display text-3xl font-extrabold text-paid">
               PAYÉE
             </span>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 md:grid-cols-3">
-        <div className="md:col-span-3">
-          <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">Vous gardez la main</h2>
-        </div>
-        <div>
-          <h3 className="font-semibold">Vos messages, votre adresse</h3>
-          <p className="mt-2 text-muted">
-            Les relances partent de votre boîte mail, signées de votre nom, dans le fil de la facture. Votre client répond
-            à vous, pas à un robot.
-          </p>
-        </div>
-        <div>
-          <h3 className="font-semibold">Rien de grave sans votre accord</h3>
-          <p className="mt-2 text-muted">
-            La mise en demeure attend votre validation. Un client fidèle qui traverse une passe difficile ? Mettez sa
-            séquence en pause en un clic.
-          </p>
-        </div>
-        <div>
-          <h3 className="font-semibold">L'argent ne passe pas par nous</h3>
-          <p className="mt-2 text-muted">
-            Dûment est un logiciel, pas une agence de recouvrement : votre client vous paie directement et nous ne prenons
-            aucune commission.
-          </p>
+      {/* Promises */}
+      <section className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
+        <h2 data-reveal className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Vous gardez la main</h2>
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {promises.map((p, i) => (
+            <div key={p.title} data-reveal style={{ "--i": i } as React.CSSProperties} className="card p-7">
+              <span className={`grid h-12 w-12 place-items-center rounded-2xl ${p.color} text-white`}>
+                <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden>
+                  <path d={p.icon} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <h3 className="mt-5 font-display text-xl font-bold">{p.title}</h3>
+              <p className="mt-2 text-muted">{p.body}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      <section id="acces" className="scroll-mt-8 border-t border-rule">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-          <div className="space-y-4">
-            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">L'envoi automatique arrive bientôt</h2>
-            <p className="text-muted">
+      {/* Early access */}
+      <section id="acces" className="scroll-mt-24 px-4 sm:px-6">
+        <div
+          data-reveal
+          className="relative mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-10 overflow-hidden rounded-[28px] bg-brand px-6 py-14 text-white sm:px-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
+        >
+          <div aria-hidden className="blob pointer-events-none absolute -bottom-24 -left-16 h-80 w-80 rounded-full bg-late/50" />
+          <div aria-hidden className="blob pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full bg-paid/40 [animation-delay:-7s]" />
+          <div className="relative space-y-4">
+            <h2 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">L'envoi automatique arrive bientôt</h2>
+            <p className="text-white/85">
               Les outils de calcul et de rédaction sont déjà gratuits. Le suivi automatique de vos factures ouvre d'abord à
               un petit groupe d'indépendants, pour le construire avec eux.
             </p>
-            <p className="text-muted">
-              En attendant : <Link href="/outils/calcul-penalites-de-retard" className="font-semibold text-ink underline underline-offset-4">calculez vos pénalités</Link> ou{" "}
-              <Link href="/modeles" className="font-semibold text-ink underline underline-offset-4">parcourez les modèles de relance</Link>.
-            </p>
+            <div className="flex flex-wrap gap-3 pt-2">
+              <Link href="/outils/calcul-penalites-de-retard" className="btn btn-light btn-sm">
+                Calculer mes pénalités
+              </Link>
+              <Link href="/modeles" className="btn btn-sm border-[1.5px] border-white/60 text-white">
+                Voir les modèles
+              </Link>
+            </div>
           </div>
-          <div className="rounded-2xl border border-rule bg-sheet p-6">
+          <div className="relative rounded-[22px] bg-sheet p-6 text-ink sm:p-7">
             <EarlyAccess />
           </div>
         </div>
