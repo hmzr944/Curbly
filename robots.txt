@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://hmzr944.github.io/Curbly/sitemap.xml
