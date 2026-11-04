@@ -39,6 +39,6 @@ Outils gratuits, 5 pages modèles, accès anticipé avec parrainage, sitemap et 
 
 - Vérifier le nom et le domaine (`dument.fr` est une hypothèse), déposer la marque si le nom est retenu.
 - Mentions légales, politique de confidentialité, hébergeur.
-- Renseigner `WAITLIST_WEBHOOK_URL` et `NEXT_PUBLIC_SITE_URL`.
+- Brancher `NEXT_PUBLIC_WAITLIST_URL` (Formspree, Tally, Make…) pour ouvrir les inscriptions à l'accès anticipé.
 - Déclarer le site dans Google Search Console et soumettre le sitemap.
 - Mettre à jour `lib/rates.ts` au 1er janvier 2027.

@@ -8,6 +8,8 @@ import { JsonLd } from "../../components/json-ld";
 import { LetterGenerator } from "../../components/letter-generator";
 import { PageHeader } from "../../components/page-header";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return MODELS.map((m) => ({ slug: m.slug }));
 }

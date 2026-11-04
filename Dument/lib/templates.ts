@@ -2,6 +2,7 @@ import { euros, frenchDate } from "./dates";
 import { computePenalties, fmtRate, FIXED_INDEMNITY, type PenaltyResult } from "./penalties";
 import type { RateMode } from "./rates";
 import { stage, type StageId } from "./sequence";
+import { SITE } from "./site";
 
 export interface LetterContext {
   senderName: string;
@@ -26,7 +27,7 @@ export interface Letter {
   penalties: PenaltyResult | null;
 }
 
-export const SIGNATURE_FOOTER = "Relance préparée avec Dûment, l'outil gratuit pour se faire payer à l'heure : dument.fr";
+export const SIGNATURE_FOOTER = `Relance préparée avec Dûment, l'outil gratuit pour se faire payer à l'heure : ${SITE.url.replace(/^https?:\/\//, "")}`;
 
 export function renderLetter(id: StageId, ctx: LetterContext): Letter {
   const inv = `la facture n° ${ctx.invoiceNumber} du ${frenchDate(ctx.invoiceDate)}`;

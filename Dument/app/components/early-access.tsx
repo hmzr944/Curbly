@@ -1,6 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
+
+// The site is static, so sign-ups go to an external endpoint accepting a JSON POST
+// (Formspree, Tally, Make, Zapier, Google Apps Script…). Without one, the form is not shown.
+const ENDPOINT = process.env.NEXT_PUBLIC_WAITLIST_URL;
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+function code() {
+  return Math.random().toString(36).slice(2, 8);
+}
 
 export function EarlyAccess() {
   const [email, setEmail] = useState("");
@@ -19,19 +29,21 @@ export function EarlyAccess() {
     e.preventDefault();
     setState("sending");
     setError("");
-    const website = new FormData(e.currentTarget).get("website");
-    const res = await fetch("/api/waitlist", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ email, volume, ref, website }),
-    }).catch(() => null);
-    const data = await res?.json().catch(() => null);
-    if (!res?.ok || !data?.code) {
-      setError(data?.error ?? "L'inscription n'a pas pu être enregistrée. Réessayez dans un instant.");
-      setState("idle");
-      return;
+    const own = code();
+    // Honeypot: real visitors never fill the hidden "website" field.
+    if (!new FormData(e.currentTarget).get("website")) {
+      const res = await fetch(ENDPOINT!, {
+        method: "POST",
+        headers: { "content-type": "application/json", accept: "application/json" },
+        body: JSON.stringify({ email: email.trim().toLowerCase(), volume: volume || null, ref, code: own, at: new Date().toISOString() }),
+      }).catch(() => null);
+      if (!res?.ok) {
+        setError("L'inscription n'a pas pu être enregistrée. Réessayez dans un instant.");
+        setState("idle");
+        return;
+      }
     }
-    setLink(`${window.location.origin}/?ref=${data.code}`);
+    setLink(`${window.location.origin}${BASE_PATH}/?ref=${own}`);
     setState("done");
   }
 
@@ -59,6 +71,19 @@ export function EarlyAccess() {
             {copied ? "Lien copié" : "Copier le lien"}
           </button>
         </div>
+      </div>
+    );
+  }
+
+  if (!ENDPOINT) {
+    return (
+      <div className="space-y-3">
+        <p className="font-display text-xl font-bold">Les inscriptions ouvrent très bientôt.</p>
+        <p className="text-muted">
+          En attendant, les outils gratuits sont là pour vous :{" "}
+          <Link href="/outils/calcul-penalites-de-retard" className="link">calculez vos pénalités</Link> ou{" "}
+          <Link href="/outils/lettre-de-relance" className="link">rédigez une relance</Link>.
+        </p>
       </div>
     );
   }

@@ -25,7 +25,16 @@ Cette première version contient les outils gratuits qui attirent les visiteurs 
 npm install
 npm test          # tests unitaires du moteur
 npm run dev       # http://localhost:3000
-npm run build
 ```
 
-Variables : voir `.env.example`. Sans `WAITLIST_WEBHOOK_URL`, les inscriptions sont écrites dans `data/waitlist.jsonl`. Ce fichier ne sert qu'en développement : sur un hébergeur serverless, configurez le webhook.
+## Publier (site statique)
+
+Le site est exporté en fichiers statiques (`out/`), servis par GitHub Pages sur https://hmzr944.github.io/Curbly/.
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/Curbly NEXT_PUBLIC_SITE_URL=https://hmzr944.github.io/Curbly npm run build
+```
+
+Puis copier le contenu de `out/` à la racine de la branche `gh-pages`, avec un fichier `.nojekyll` (sans lui, GitHub ignore le dossier `_next`). Réglage GitHub : Settings > Pages > Source « Deploy from a branch », branche `gh-pages`, dossier `/ (root)`.
+
+Variables : voir `.env.example`. Sans `NEXT_PUBLIC_WAITLIST_URL`, le formulaire d'accès anticipé est remplacé par des liens vers les outils gratuits.

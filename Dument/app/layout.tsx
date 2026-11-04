@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Onest, Unbounded } from "next/font/google";
+import localFont from "next/font/local";
 import { SITE } from "@/lib/site";
 import { Footer } from "./components/footer";
 import { Nav } from "./components/nav";
@@ -7,8 +7,9 @@ import { RevealObserver } from "./components/reveal-observer";
 import "./globals.css";
 
 // Unbounded: wide, round, heavy display face whose circles echo the logo. Onest: sturdy text face for reading.
-const unbounded = Unbounded({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-unbounded", display: "swap" });
-const onest = Onest({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-onest", display: "swap" });
+// Self-hosted variable fonts (SIL Open Font License), latin subset.
+const unbounded = localFont({ src: "./fonts/unbounded-latin.woff2", weight: "600 800", variable: "--font-unbounded", display: "swap" });
+const onest = localFont({ src: "./fonts/onest-latin.woff2", weight: "400 700", variable: "--font-onest", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
